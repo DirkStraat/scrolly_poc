@@ -79,10 +79,6 @@ function Scrolly(props: any) {
     );
   }, [props.article.separatedContent]);
 
-  useEffect(() => {
-    console.log("render");
-  }, []);
-
   return (
     <section className={styles.scrollyWrapper}>
       <div

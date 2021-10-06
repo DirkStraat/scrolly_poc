@@ -48,7 +48,7 @@ function Article(props: any) {
           </p>
         </div>
         <section ref={scrollyRef}>
-          <Scrolly {...props} />
+          <Scrolly {...props} interSect={interSect} />
         </section>
       </div>
     </>
