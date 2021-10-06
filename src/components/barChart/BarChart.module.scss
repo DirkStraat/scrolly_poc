@@ -1,0 +1,31 @@
+.barChart {
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+    transition: 1s;
+  }
+  .title {
+    font-family: "ProximaNovaRegular";
+    text-align: left;
+    color: var(--content-copy);
+  }
+
+  h2.title {
+    font-family: "ProximaNovaBold";
+    padding: 4px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+  p.title {
+    padding: 4px 16px;
+    margin: 0 0 4px 0;
+  }
+  @media (min-width: 1024px) {
+    h2.title {
+      font-family: "ProximaNovaBold";
+      font-size: 20px;
+    }
+  }
+}

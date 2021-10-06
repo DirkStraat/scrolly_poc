@@ -1,0 +1,9 @@
+.articleIntro {
+  display: block;
+  height: 50vh;
+  background-color: var(--opaque-label-longread-background);
+  color: var(--content-copy);
+  .introText {
+    padding: 10vh 25vw;
+  }
+}
