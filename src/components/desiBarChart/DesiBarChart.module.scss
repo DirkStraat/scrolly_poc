@@ -1,4 +1,5 @@
-.barChart {
+.desiBarChart {
+  display: none;
   .title {
     font-family: "ProximaNovaRegular";
     text-align: left;
@@ -16,9 +17,12 @@
     padding: 4px 16px;
     margin: 0 0 4px 0;
   }
+
+  &.active {
+    display: block;
+  }
   @media (min-width: 1024px) {
     h2.title {
-      font-family: "ProximaNovaBold";
       font-size: 20px;
     }
   }

@@ -1,19 +1,33 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import useWindowDimensions from "../lib/useWindowDimensions";
 import { parseXMLToJSON } from "@fdmg/article-xml-json";
 import { Article } from "../components/article/Article";
 
 export default function Home(props: any) {
+  const { width } = useWindowDimensions();
+  const [isMobileSize, setIsMobileSize] = useState(true);
+
+  useEffect(() => {
+    setIsMobileSize(width < 1024);
+  }, [width]);
+
   return (
     <>
       {props.data.map((article) => {
-        return <Article article={article} key={article.id} />;
+        return (
+          <Article
+            article={article}
+            key={article.id}
+            isMobileSize={isMobileSize}
+          />
+        );
       })}
     </>
   );
 }
 
 export async function getStaticProps() {
-  const articleIds = [1408272, 1408271];
+  const articleIds = [1408271, 1408272];
   const requestOptions = {
     method: "GET",
     headers: {

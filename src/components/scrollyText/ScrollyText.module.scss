@@ -1,0 +1,23 @@
+.scrollyTextContainer {
+  max-width: 360px;
+  margin: auto;
+  position: relative;
+  padding-top: 100vh;
+  .scrollyTextPart {
+    position: relative;
+    z-index: 1;
+    background-color: var(--product-background-2);
+    margin-bottom: 100vh;
+    padding: 16px;
+    h2,
+    p {
+      color: var(--content-copy);
+      background-color: var(--product-background-2);
+    }
+  }
+}
+@media (min-width: 1024px) {
+  .scrollyTextContainer {
+    grid-column: 1;
+  }
+}

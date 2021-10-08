@@ -16,24 +16,7 @@ p.title {
   margin: 0 0 4px 0;
 }
 
-.svgContainer {
-  width: 360px;
-  margin: auto;
-  z-index: -1;
-  svg {
-    // opacity: 0;
-    &.active {
-      opacity: 1;
-      transition: 1s;
-    }
-    position: absolute;
-    margin: auto;
-  }
-}
 @media (min-width: 1024px) {
-  .svgContainer {
-    margin: 0;
-  }
   h2.title {
     font-size: 20px;
   }

@@ -1,4 +1,10 @@
-.barChart {
+.donut {
+  &.active {
+    display: block;
+  }
+  display: none;
+  position: relative;
+
   .title {
     font-family: "ProximaNovaRegular";
     text-align: left;
@@ -17,6 +23,16 @@
     margin: 0 0 4px 0;
   }
   @media (min-width: 1024px) {
+    h2.title {
+      font-family: "ProximaNovaBold";
+      font-size: 20px;
+    }
+  }
+}
+@media (min-width: 1024px) {
+  .donut {
+    padding-top: 40px;
+
     h2.title {
       font-family: "ProximaNovaBold";
       font-size: 20px;

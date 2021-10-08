@@ -1,4 +1,16 @@
-.barChart {
+.scatterContainer {
+  position: relative;
+
+  svg {
+    text {
+      fill: var(--content-copy);
+    }
+
+    path.domain {
+      stroke: transparent;
+    }
+  }
+
   .title {
     font-family: "ProximaNovaRegular";
     text-align: left;
@@ -12,9 +24,15 @@
     font-weight: 600;
     margin: 0;
   }
-  p.title {
+  p {
     padding: 4px 16px;
-    margin: 0 0 4px 0;
+    margin: 0;
+  }
+  p.disclaimer {
+    font-family: "ProximaNovaRegular";
+    text-align: left;
+    font-size: 12px;
+    color: var(--content-copy);
   }
   @media (min-width: 1024px) {
     h2.title {

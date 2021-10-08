@@ -27,37 +27,36 @@ const heightMobile = 250 - margin.top - margin.bottom;
 export interface Props {
   currentPart: string;
   isMobileSize: boolean;
-  title: string;
   active: boolean;
 }
 
-function BarChartHorizontal(props: Props) {
+function BarChartHorizontal({ currentPart, isMobileSize }) {
   const barChartRef = useRef(null);
-  const [currentPart, setCurrentPart] = useState(null);
+  const [localCurrentPart, setCurrentPart] = useState(null);
   const [top10GDPData, setTop10GDPData] = useState(null);
   const [topBranchesData, setTopBranchesData] = useState(null);
   const [currentData, setCurrentData] = useState(null);
   const [options, setOptions] = useState(top10GDPOptions);
 
   useEffect(() => {
-    if (props.currentPart) {
+    if (currentPart) {
       const currentPartIndex = parseInt(
-        props.currentPart.substring(0, props.currentPart.indexOf("_"))
+        currentPart.substring(0, currentPart.indexOf("_"))
       );
       setCurrentPart(currentPartIndex);
     }
-  }, [props.currentPart]);
+  }, [currentPart]);
 
   useEffect(() => {
-    if (currentPart == 0 && top10GDPData) {
+    if (localCurrentPart == 0 && top10GDPData) {
       setCurrentData(top10GDPData);
       setOptions(top10GDPOptions);
     }
-    if (currentPart == 1 && topBranchesData) {
+    if (localCurrentPart == 1 && topBranchesData) {
       setCurrentData(topBranchesData);
       setOptions(topBranchenOptions);
     }
-  }, [currentPart, top10GDPData, topBranchesData]);
+  }, [localCurrentPart, top10GDPData, topBranchesData]);
 
   useEffect(() => {
     if (barChartRef.current) {
@@ -73,7 +72,7 @@ function BarChartHorizontal(props: Props) {
         .attr(
           "width",
           `${
-            props.isMobileSize
+            isMobileSize
               ? widthMobile + margin.left + margin.right
               : widthDesktop + margin.left + margin.right
           }`
@@ -81,7 +80,7 @@ function BarChartHorizontal(props: Props) {
         .attr(
           "height",
           `${
-            props.isMobileSize
+            isMobileSize
               ? heightMobile + margin.top + margin.bottom
               : heightDesktop + margin.top + margin.bottom
           }`
@@ -97,7 +96,7 @@ function BarChartHorizontal(props: Props) {
         setTopBranchesData(data);
       });
     }
-  }, [props.isMobileSize]);
+  }, [isMobileSize]);
 
   useEffect(() => {
     const svg = d3.select(barChartRef.current).select("svg");
@@ -112,12 +111,12 @@ function BarChartHorizontal(props: Props) {
       const x = d3
         .scaleLinear()
         .domain([0, options.domainWidth])
-        .range([0, `${props.isMobileSize ? widthMobile : widthDesktop}`]);
+        .range([0, `${isMobileSize ? widthMobile : widthDesktop}`]);
 
       const xAxisGrid = d3
         .axisBottom(x)
         .ticks(4)
-        .tickSize(-`${props.isMobileSize ? heightMobile : heightDesktop}`)
+        .tickSize(-`${isMobileSize ? heightMobile : heightDesktop}`)
         .tickFormat(d3.format("d"));
 
       svg
@@ -126,14 +125,14 @@ function BarChartHorizontal(props: Props) {
         .attr("class", "x axis-grid")
         .attr(
           "transform",
-          `translate(0,${props.isMobileSize ? heightMobile : heightDesktop})`
+          `translate(0,${isMobileSize ? heightMobile : heightDesktop})`
         )
         .call(xAxisGrid);
 
       // Y axis
       const y = d3
         .scaleBand()
-        .range([0, `${props.isMobileSize ? heightMobile : heightDesktop}`])
+        .range([0, `${isMobileSize ? heightMobile : heightDesktop}`])
         .domain(data.map((d) => d.Y_axis))
         .padding(0.25);
       svg.select("g").append("g").call(d3.axisLeft(y)).attr("class", "y");
@@ -174,13 +173,10 @@ function BarChartHorizontal(props: Props) {
         .attr("width", (d) => x(d.Value))
         .delay((_, i) => i * 100);
     }
-  }, [currentData, options.domainWidth, options.highLight, props.isMobileSize]);
+  }, [currentData, options.domainWidth, options.highLight, isMobileSize]);
 
   return (
-    <div
-      ref={barChartRef}
-      className={`${styles.barChart} ${props.active ? styles.active : ""}`}
-    >
+    <div ref={barChartRef} className={styles.barChart}>
       <h2 className={`${styles.title} body-text sans m bold`}>
         {options.title}
       </h2>

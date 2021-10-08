@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Article.module.scss";
 import { Scrolly } from "../scrolly/Scrolly";
 
-function Article(props: any) {
+function Article({ article, isMobileSize }) {
   const scrollyRef = useRef(null);
   const [interSect, setIntersect] = useState(false);
 
@@ -43,12 +43,19 @@ function Article(props: any) {
     <>
       <div className={styles.articleWrapper}>
         <div className={styles.articleIntro}>
+          <h2 className={`heading serif m ${styles.introHeader}`}>
+            {article.title}
+          </h2>
           <p className={`body-text serif s ${styles.introText}`}>
-            {props.article.teaser.content}
+            {article.teaser.content}
           </p>
         </div>
         <section ref={scrollyRef}>
-          <Scrolly {...props} interSect={interSect} />
+          <Scrolly
+            article={article}
+            interSect={interSect}
+            isMobileSize={isMobileSize}
+          />
         </section>
       </div>
     </>

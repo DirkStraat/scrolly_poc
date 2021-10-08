@@ -1,9 +1,12 @@
 .articleIntro {
   display: block;
-  height: 50vh;
+  min-height: 50vh;
   background-color: var(--opaque-label-longread-background);
-  color: var(--content-copy);
-  .introText {
+  color: var(--breaking-label-copy);
+  padding: 10vh 10vw;
+}
+@media (min-width: 1024px) {
+  .articleIntro {
     padding: 10vh 25vw;
   }
 }
