@@ -64,7 +64,7 @@ export interface Props {
   title: string;
 }
 
-function EuropeMap({ isMobileSize, currentPart, title }) {
+function EuropeMap({ isMobileSize, currentPart, title, active }) {
   const mapRef = useRef(null);
   const [currentOptions, setCurrentOptions] = useState(null);
   const [initial, setInitial] = useState(true);
@@ -314,13 +314,16 @@ function EuropeMap({ isMobileSize, currentPart, title }) {
   }, [mapRef, currentOptions, zoomSettings.ease, zoomSettings.duration]);
 
   return (
-    <div ref={mapRef} className={styles.europeMapContainer}>
+    <div
+      ref={mapRef}
+      className={`${styles.europeMapContainer} ${active ? styles.active : ""}`}
+    >
       <>
-        <h2 className={styles.title}>{mapLabel}</h2>
+        <h2 className={`${styles.title} body-text sans m bold`}>{mapLabel}</h2>
         <p
           className={`${styles.title} ${
-            currentPart == `2_${title}` ? styles.active : ""
-          }`}
+            currentPart == `2_${title}` ? styles.visible : ""
+          } body-text sans xs`}
         >
           {mapSubLabel}
         </p>

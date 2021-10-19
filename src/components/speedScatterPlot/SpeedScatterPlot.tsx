@@ -28,6 +28,7 @@ export interface Props {
   currentPart: string;
   isMobileSize: boolean;
   title: string;
+  active: boolean;
 }
 
 function SpeedScatterPlot(props: Props) {
@@ -37,7 +38,7 @@ function SpeedScatterPlot(props: Props) {
   useEffect(() => {
     let svg: any;
 
-    if (scatterRef.current) {
+    if (scatterRef.current && props.active) {
       if (scatterRef.current.childNodes.length > 0) {
         scatterRef.current.childNodes.forEach((childnode) => {
           childnode.tagName == "H2" || childnode.tagName == "P"
@@ -417,7 +418,7 @@ function SpeedScatterPlot(props: Props) {
           .style("opacity", 0);
       });
     }
-  }, [props.isMobileSize]);
+  }, [props.isMobileSize, props.active]);
 
   const changeOpacity = useCallback(
     (classString: string, duration = 200, opacity = 0) => {
@@ -430,140 +431,156 @@ function SpeedScatterPlot(props: Props) {
   );
 
   useEffect(() => {
-    const containerWidth = d3.select(scatterRef.current).select("svg").node()
-      .parentElement.clientWidth;
-    const offsetLeft = (containerWidth - widthMobile) / 2;
-    if (scatterRef.current) {
-      const svg = d3
-        .select(scatterRef.current)
-        .select("svg")
-        .select(".containerG");
-      const x = d3
-        .scaleLinear()
-        .domain([0, 250])
-        .range([0, `${props.isMobileSize ? widthMobile : widthDesktop}`]);
-      const y = d3
-        .scaleLinear()
-        .domain([0, 200])
-        .range([`${props.isMobileSize ? heightMobile : heightDesktop}`, 0]);
+    if (scatterRef.current && props.active) {
+      const containerWidth = d3.select(scatterRef.current).select("svg").node()
+        .parentElement.clientWidth;
+      const offsetLeft = (containerWidth - widthMobile) / 2;
+      if (scatterRef.current) {
+        const svg = d3
+          .select(scatterRef.current)
+          .select("svg")
+          .select(".containerG");
+        const x = d3
+          .scaleLinear()
+          .domain([0, 250])
+          .range([0, `${props.isMobileSize ? widthMobile : widthDesktop}`]);
+        const y = d3
+          .scaleLinear()
+          .domain([0, 200])
+          .range([`${props.isMobileSize ? heightMobile : heightDesktop}`, 0]);
 
-      if (props.currentPart == `7_${title}`) {
-        svg.selectAll(".helpLine").style("opacity", 0);
+        if (props.currentPart == `7_${title}`) {
+          svg.selectAll(".helpLine").style("opacity", 0);
 
-        svg
-          .selectAll("circle")
-          .transition()
-          .delay((_, i) => {
-            return i * 3;
-          })
-          .duration(400)
-          .attr("cx", (d) => {
-            return x(d.Mbps_vast);
-          })
-          .attr(
-            "cy",
-            `${(props.isMobileSize ? heightMobile : heightDesktop) - 4}`
-          )
-          .attr("class", "");
+          svg
+            .selectAll("circle")
+            .transition()
+            .delay((_, i) => {
+              return i * 3;
+            })
+            .duration(400)
+            .attr("cx", (d) => {
+              return x(d.Mbps_vast);
+            })
+            .attr(
+              "cy",
+              `${(props.isMobileSize ? heightMobile : heightDesktop) - 4}`
+            )
+            .attr("class", "");
 
-        svg
-          .selectAll(".label")
-          .attr("x", (d) => x(d.Mbps_vast) + 7)
-          .attr("y", () => y(0))
-          .attr("opacity", (d) => {
-            if (d.Country == "Germany") {
-              return 1;
-            } else return 0;
-          })
-          .text((d) => d.Country);
+          svg
+            .selectAll(".label")
+            .attr("x", (d) => x(d.Mbps_vast) + 7)
+            .attr("y", () => y(0))
+            .attr("opacity", (d) => {
+              if (d.Country == "Germany") {
+                return 1;
+              } else return 0;
+            })
+            .text((d) => d.Country);
 
-        d3.selectAll(".tooltip")
-          .transition()
-          .duration(500)
-          .style("top", () => {
-            const topTemp = props.isMobileSize
-              ? heightMobile + 9
-              : heightDesktop + 13;
-            return `${topTemp}px`;
-          });
-      }
+          d3.selectAll(".tooltip")
+            .transition()
+            .duration(500)
+            .style("top", () => {
+              const topTemp = props.isMobileSize
+                ? heightMobile + 9
+                : heightDesktop + 13;
+              return `${topTemp}px`;
+            });
+        }
 
-      if (props.currentPart == `8_${title}`) {
-        changeOpacity(".helpLine");
-        changeOpacity(".topCountriesVast", 300, 0);
-        changeOpacity(".topCountriesMobile", 300, 0);
-        changeOpacity(".redLanternCountries", 300, 0);
+        if (
+          props.currentPart == `8_${title}` ||
+          props.currentPart == `10_${title}`
+        ) {
+          changeOpacity(".helpLine");
+          changeOpacity(".topCountriesVast", 300, 0);
+          changeOpacity(".topCountriesMobile", 300, 0);
+          changeOpacity(".redLanternCountries", 300, 0);
 
-        svg
-          .selectAll("circle")
-          .transition()
-          .delay((_, i) => {
-            return i * 3;
-          })
-          .duration(400)
-          .attr("cx", (d) => {
-            return x(d.Mbps_vast);
-          })
-          .attr("cy", (d) => {
-            return y(d.Mbps_mobiel);
-          })
-          .attr("class", "hasHeight");
+          svg
+            .selectAll("circle")
+            .transition()
+            .delay((_, i) => {
+              return i * 3;
+            })
+            .duration(400)
+            .attr("cx", (d) => {
+              return x(d.Mbps_vast);
+            })
+            .attr("cy", (d) => {
+              return y(d.Mbps_mobiel);
+            })
+            .attr("class", "hasHeight");
 
-        svg
-          .selectAll(".label")
-          .transition()
-          .attr("x", (d) => x(d.Mbps_vast) + 7)
-          .attr("y", (d) => y(d.Mbps_mobiel))
-          .attr("opacity", (d) => {
-            if (d.Country == "Germany") {
-              return 1;
-            } else return 0;
-          })
-          .text((d) => d.Country);
+          svg
+            .selectAll(".label")
+            .transition()
+            .attr("x", (d) => x(d.Mbps_vast) + 7)
+            .attr("y", (d) => y(d.Mbps_mobiel))
+            .attr("opacity", (d) => {
+              if (d.Country == "Germany") {
+                return 1;
+              } else return 0;
+            })
+            .text((d) => d.Country);
 
-        d3.selectAll(".tooltip")
-          .transition()
-          .duration(500)
-          .style("top", (d) => {
-            return `${y(parseFloat(d.Mbps_mobiel)) + 13}px`;
-          })
-          .style("left", (d) => {
-            const leftMargin = props.isMobileSize
-              ? d.Country == "Germany"
-                ? -36 + offsetLeft
-                : 12 + offsetLeft
-              : 60;
-            return `${parseFloat(x(parseFloat(d.Mbps_vast))) + leftMargin}px`;
-          })
-          .style("opacity", 1);
-      }
+          d3.selectAll(".tooltip")
+            .transition()
+            .duration(500)
+            .style("top", (d) => {
+              return `${y(parseFloat(d.Mbps_mobiel)) + 13}px`;
+            })
+            .style("left", (d) => {
+              const leftMargin = props.isMobileSize
+                ? d.Country == "Germany"
+                  ? -36 + offsetLeft
+                  : 12 + offsetLeft
+                : 60;
+              return `${parseFloat(x(parseFloat(d.Mbps_vast))) + leftMargin}px`;
+            })
+            .style("opacity", 1);
+        }
 
-      if (props.currentPart == `9_${title}`) {
-        changeOpacity(".helpLine");
-        changeOpacity(".topLine", 200, 1);
-        changeOpacity(".topVastMobiel", 200, 0.4);
-        changeOpacity(".rectLabel.topVastMobiel", 300, 1);
-        changeOpacity(".topCountriesVast", 300, 1);
-        changeOpacity(".topCountriesMobile", 300, 0);
-        changeOpacity(".redLanternCountries", 300, 0);
+        if (props.currentPart == `9_${title}`) {
+          changeOpacity(".helpLine");
+          changeOpacity(".topLine", 200, 1);
+          changeOpacity(".topVastMobiel", 200, 0.4);
+          changeOpacity(".rectLabel.topVastMobiel", 300, 1);
+          changeOpacity(".topCountriesVast", 300, 1);
+          changeOpacity(".topCountriesMobile", 300, 0);
+          changeOpacity(".redLanternCountries", 300, 0);
 
-        props.isMobileSize && changeOpacity(".tooltip", 400, 0);
-      }
+          props.isMobileSize && changeOpacity(".tooltip", 400, 0);
+        }
 
-      if (props.currentPart == `10_${title}`) {
-        changeOpacity(".helpLine");
-        changeOpacity(".topLine", 200, 1);
-        changeOpacity(".redLantern", 200, 0.4);
-        changeOpacity(".rectLabel.redLantern", 300, 1);
-        changeOpacity(".topCountriesMobile", 300, 0);
-        changeOpacity(".topCountriesVast", 300, 0);
-        changeOpacity(".redLanternCountries", 300, 1);
+        if (props.currentPart == `10_${title}`) {
+          changeOpacity(".helpLine");
+          changeOpacity(".topLine", 200, 1);
+          changeOpacity(".redLantern", 200, 0.4);
+          changeOpacity(".rectLabel.redLantern", 300, 1);
+          changeOpacity(".topCountriesMobile", 300, 0);
+          changeOpacity(".topCountriesVast", 300, 0);
+          changeOpacity(".redLanternCountries", 300, 1);
+        }
       }
     }
-  }, [props.currentPart, changeOpacity, props.isMobileSize, title]);
+  }, [
+    props.currentPart,
+    changeOpacity,
+    props.isMobileSize,
+    title,
+    props.active,
+  ]);
 
   return (
-    <div ref={scatterRef} className={styles.scatterContainer}>
+    <div
+      ref={scatterRef}
+      className={`${styles.scatterContainer} ${
+        props.active ? styles.active : ""
+      }`}
+    >
       <h2 className={styles.title}>Duitsland niet de snelste</h2>
       <p className={styles.title}>
         Gemiddelde snelheid voor vast en mobiel internet, in juli 2021

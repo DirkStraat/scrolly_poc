@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Article.module.scss";
 import { Scrolly } from "../scrolly/Scrolly";
 
-function Article({ article, isMobileSize }) {
+function Article({ article, isMobileSize, dimensions }) {
   const scrollyRef = useRef(null);
   const [interSect, setIntersect] = useState(false);
 
@@ -55,6 +55,7 @@ function Article({ article, isMobileSize }) {
             article={article}
             interSect={interSect}
             isMobileSize={isMobileSize}
+            dimensions={dimensions}
           />
         </section>
       </div>

@@ -19,7 +19,7 @@ const topBranchenOptions = {
 };
 
 const margin = { top: 10, right: 30, bottom: 30, left: 140 };
-const widthDesktop = 360 - margin.left - margin.right;
+const widthDesktop = 600 - margin.left - margin.right;
 const heightDesktop = 360 - margin.top - margin.bottom;
 const widthMobile = 360 - margin.left - margin.right;
 const heightMobile = 250 - margin.top - margin.bottom;
@@ -30,7 +30,7 @@ export interface Props {
   active: boolean;
 }
 
-function BarChartHorizontal({ currentPart, isMobileSize }) {
+function BarChartHorizontal({ currentPart, isMobileSize, active }) {
   const barChartRef = useRef(null);
   const [localCurrentPart, setCurrentPart] = useState(null);
   const [top10GDPData, setTop10GDPData] = useState(null);
@@ -59,7 +59,7 @@ function BarChartHorizontal({ currentPart, isMobileSize }) {
   }, [localCurrentPart, top10GDPData, topBranchesData]);
 
   useEffect(() => {
-    if (barChartRef.current) {
+    if (barChartRef.current && active) {
       if (barChartRef.current.childNodes.length > 0) {
         barChartRef.current.childNodes.forEach((childnode) => {
           childnode.tagName == "H2" || childnode.tagName == "P"
@@ -96,7 +96,7 @@ function BarChartHorizontal({ currentPart, isMobileSize }) {
         setTopBranchesData(data);
       });
     }
-  }, [isMobileSize]);
+  }, [isMobileSize, active]);
 
   useEffect(() => {
     const svg = d3.select(barChartRef.current).select("svg");
@@ -176,7 +176,10 @@ function BarChartHorizontal({ currentPart, isMobileSize }) {
   }, [currentData, options.domainWidth, options.highLight, isMobileSize]);
 
   return (
-    <div ref={barChartRef} className={styles.barChart}>
+    <div
+      ref={barChartRef}
+      className={`${styles.barChart} ${active ? styles.active : ""}`}
+    >
       <h2 className={`${styles.title} body-text sans m bold`}>
         {options.title}
       </h2>

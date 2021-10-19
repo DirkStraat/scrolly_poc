@@ -1,4 +1,12 @@
 .scatterContainer {
+  opacity: 0;
+  transition: opacity 0.5s;
+  position: absolute;
+
+  &.active {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
   position: relative;
 
   svg {

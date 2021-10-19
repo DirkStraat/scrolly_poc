@@ -4,12 +4,12 @@ import { parseXMLToJSON } from "@fdmg/article-xml-json";
 import { Article } from "../components/article/Article";
 
 export default function Home(props: any) {
-  const { width } = useWindowDimensions();
+  const dimensions = useWindowDimensions();
   const [isMobileSize, setIsMobileSize] = useState(true);
 
   useEffect(() => {
-    setIsMobileSize(width < 1024);
-  }, [width]);
+    setIsMobileSize(dimensions.width < 1024);
+  }, [dimensions]);
 
   return (
     <>
@@ -19,6 +19,7 @@ export default function Home(props: any) {
             article={article}
             key={article.id}
             isMobileSize={isMobileSize}
+            dimensions={dimensions}
           />
         );
       })}
@@ -27,7 +28,7 @@ export default function Home(props: any) {
 }
 
 export async function getStaticProps() {
-  const articleIds = [1408271, 1408272];
+  const articleIds = [1408273, 1408271, 1408272];
   const requestOptions = {
     method: "GET",
     headers: {

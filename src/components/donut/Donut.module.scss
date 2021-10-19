@@ -1,8 +1,12 @@
 .donut {
+  opacity: 0;
+  transition: opacity 0.5s;
+  position: absolute;
+
   &.active {
-    display: block;
+    opacity: 1;
+    transition: opacity 0.5s;
   }
-  display: none;
   position: relative;
 
   .title {

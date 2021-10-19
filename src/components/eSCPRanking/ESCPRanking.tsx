@@ -13,13 +13,19 @@ export interface Props {
   currentPart: string;
   isMobileSize: boolean;
   title: string;
+  active: boolean;
+  dimensions: { width: number; height: number };
 }
 
 function ESCPRanking(props: Props) {
   const ESCPRef = useRef(null);
 
   useEffect(() => {
-    if (ESCPRef.current) {
+    console.log(props.dimensions.width);
+  }, [props.dimensions]);
+
+  useEffect(() => {
+    if (ESCPRef.current && props.active) {
       if (ESCPRef.current.childNodes.length > 0) {
         ESCPRef.current.childNodes.forEach((childnode) => {
           childnode.tagName == "H2" || childnode.tagName == "P"
@@ -160,10 +166,15 @@ function ESCPRanking(props: Props) {
           );
       });
     }
-  }, [props.isMobileSize]);
+  }, [props.isMobileSize, props.active]);
 
   return (
-    <div ref={ESCPRef} className={styles.ESCPRankingContainer}>
+    <div
+      ref={ESCPRef}
+      className={`${styles.ESCPRankingContainer} ${
+        props.active ? styles.active : ""
+      }`}
+    >
       <h2 className={styles.title}>Duitsland verliest concurrentieslag</h2>
       <p className={styles.title}>
         Digitale concurrentiekracht G20-landen, optelsom van mutaties bij 10

@@ -15,6 +15,7 @@ export interface Props {
   currentPart: string;
   isMobileSize: boolean;
   title: string;
+  active: boolean;
 }
 
 function DesiBarChart(props: Props) {
@@ -73,7 +74,7 @@ function DesiBarChart(props: Props) {
   );
 
   useEffect(() => {
-    if (desiBarChartRef.current) {
+    if (desiBarChartRef.current && props.active) {
       if (desiBarChartRef.current.childNodes.length > 0) {
         desiBarChartRef.current.childNodes.forEach((childnode) => {
           childnode.tagName == "H2" || childnode.tagName == "P"
@@ -203,7 +204,7 @@ function DesiBarChart(props: Props) {
           .style("opacity", 0);
       });
     }
-  }, [props.isMobileSize]);
+  }, [props.isMobileSize, props.active]);
 
   useEffect(() => {
     if (desiBarChartRef.current && currentData && currentPart) {
@@ -218,7 +219,7 @@ function DesiBarChart(props: Props) {
   return (
     <div
       ref={desiBarChartRef}
-      className={`${styles.desiBarChart} ${visible ? styles.active : ""}`}
+      className={`${styles.desiBarChart} ${props.active ? styles.active : ""}`}
     >
       <h2 className={styles.title}>
         Duitse overheid en bedrijfsleven lopen digitaal achter

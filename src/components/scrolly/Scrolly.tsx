@@ -3,7 +3,7 @@ import styles from "./Scrolly.module.scss";
 import { BackgroundGraphic } from "../backgroundGraphic/BackgroundGraphic";
 import { ScrollyText } from "../scrollyText/ScrollyText";
 
-function Scrolly({ article, interSect, isMobileSize }) {
+function Scrolly({ article, interSect, isMobileSize, dimensions }) {
   const [currentPart, setCurrentPart] = useState(null);
 
   return (
@@ -18,6 +18,7 @@ function Scrolly({ article, interSect, isMobileSize }) {
           isMobileSize={isMobileSize}
           title={article.title}
           id={article.id}
+          dimensions={dimensions}
         />
       </div>
       <ScrollyText

@@ -13,6 +13,7 @@ export interface Props {
   isMobileSize: boolean;
   title: string;
   listLength: number;
+  active: boolean;
 }
 
 const x = d3.scaleLinear().domain([0, 50]);
@@ -183,11 +184,7 @@ function OesoStackedBarChart(props: Props) {
   }, [props.currentPart]);
 
   useEffect(() => {
-    currentPart > 1 && currentPart < 5 ? setVisible(true) : setVisible(false);
-  }, [currentPart]);
-
-  useEffect(() => {
-    if (oesoRef.current) {
+    if (oesoRef.current && props.active) {
       if (oesoRef.current.childNodes.length > 0) {
         oesoRef.current.childNodes.forEach((childnode) => {
           childnode.tagName == "H2" || childnode.tagName == "P"
@@ -251,12 +248,14 @@ function OesoStackedBarChart(props: Props) {
         updateData(currentDataTemp);
       });
     }
-  }, []);
+  }, [props.isMobileSize, props.active]);
 
   useEffect(() => {
     if (oesoRef.current && currentPart && currentData) {
       const currentDataTemp =
-        props.currentPart == `6_${title}` ? currentFiberData : currentTopData;
+        props.currentPart == `6_${title}` || props.currentPart == `7_${title}`
+          ? currentFiberData
+          : currentTopData;
       const subGroups = currentDataTemp.columns.slice(1);
       currentData != currentDataTemp ? updateData(currentDataTemp) : "";
       setCurrentData(currentDataTemp);
@@ -306,7 +305,7 @@ function OesoStackedBarChart(props: Props) {
     <div
       ref={oesoRef}
       className={`${styles.oesoStackedBarChart} ${
-        visible ? styles.active : ""
+        props.active ? styles.active : ""
       }`}
     >
       <h2 className={styles.title}>Weinig glasvezel in Duitsland</h2>

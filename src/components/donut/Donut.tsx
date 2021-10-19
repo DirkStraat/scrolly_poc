@@ -16,6 +16,7 @@ export interface Props {
   currentPart: string;
   isMobileSize: boolean;
   title: string;
+  active: boolean;
 }
 
 function Donut(props: Props) {
@@ -236,7 +237,7 @@ function Donut(props: Props) {
   return (
     <div
       ref={donutRef}
-      className={`${styles.donut} ${visible ? styles.active : ""}`}
+      className={`${styles.donut} ${props.active ? styles.active : ""}`}
     >
       <p className={styles.title}>Aandeel productgroep in % </p>
     </div>

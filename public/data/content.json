@@ -1,0 +1,82 @@
+[
+  {
+    "title": "EuropaKaartDemo",
+    "teaser": {
+      "content": "Hier probeer ik even een dingetje met de kaart van Europa en wat import en exportcijfers. Duitsland is immers dé aanjager."
+    },
+
+    "id": 10101010,
+    "content": [
+      [
+        {
+          "name": "h2",
+          "content": "Europa importeert veel uit Duitsland"
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        }
+      ],
+      [
+        {
+          "name": "h2",
+          "content": "Polen importeert veel uit Duitsland"
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        }
+      ],
+      [
+        {
+          "name": "h2",
+          "content": "Italie importeert ook veel uit Duitsland"
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        }
+      ],
+      [
+        {
+          "name": "h2",
+          "content": "En Nederland importeert veel uit Duitsland"
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        }
+      ],
+      [
+        {
+          "name": "h2",
+          "content": "China importeert veel uit Duitsland"
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        },
+        {
+          "name": "p",
+          "content": "Dit is de eerste kaart, met Duitse importcijfers per land. Nedeland exporteert heel veel naar Duitsland, meer dan bijvoorbeeld Frankrijk, Belgie of Italie. Hé, eigenlijk meer dan iedereen. Er komt bij ons dus veel Duits geld binnen. Maar eigenlijk doet Duitsland met veel landen in de EU goede zaken, dat kunnen we wel stellen."
+        }
+      ]
+    ]
+  }
+]

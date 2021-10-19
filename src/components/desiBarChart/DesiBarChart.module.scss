@@ -1,5 +1,13 @@
 .desiBarChart {
-  display: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+  position: absolute;
+
+  &.active {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
   .title {
     font-family: "ProximaNovaRegular";
     text-align: left;
@@ -18,9 +26,6 @@
     margin: 0 0 4px 0;
   }
 
-  &.active {
-    display: block;
-  }
   @media (min-width: 1024px) {
     h2.title {
       font-size: 20px;
