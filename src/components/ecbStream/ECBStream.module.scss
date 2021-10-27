@@ -1,4 +1,4 @@
-.donut {
+.ECBStreamContainer {
   opacity: 0;
   transition: opacity 0.5s;
   position: absolute;
@@ -7,8 +7,6 @@
     opacity: 1;
     transition: opacity 0.5s;
   }
-  // position: relative;
-
   .title {
     font-family: "ProximaNovaRegular";
     text-align: left;
@@ -28,17 +26,6 @@
   }
   @media (min-width: 1024px) {
     h2.title {
-      font-family: "ProximaNovaBold";
-      font-size: 20px;
-    }
-  }
-}
-@media (min-width: 1024px) {
-  .donut {
-    padding-top: 40px;
-
-    h2.title {
-      font-family: "ProximaNovaBold";
       font-size: 20px;
     }
   }

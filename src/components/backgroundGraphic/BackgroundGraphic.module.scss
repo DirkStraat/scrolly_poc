@@ -45,19 +45,17 @@
 .photoContainer {
   .photoPassive {
     opacity: 0;
-    transition: 1s;
+    transition: opacity 1s;
   }
   .photoActive {
     opacity: 1;
-    transition: 1s;
+    transition: opacity 1s;
   }
-  transition: opacity 1s;
 }
 
 @media (min-width: 1024px) {
   .svgContainer {
     width: 640px;
-
     margin: 0;
   }
   h2.title {

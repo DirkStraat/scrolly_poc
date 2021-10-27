@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import useWindowDimensions from "../lib/useWindowDimensions";
 import { parseXMLToJSON } from "@fdmg/article-xml-json";
 import { Article } from "../components/article/Article";
+import isMobileStore from "../stores/isMobileStore";
 
 export default function Home(props: any) {
   const dimensions = useWindowDimensions();
   const [isMobileSize, setIsMobileSize] = useState(true);
 
   useEffect(() => {
+    // console.log(dimensions.width < 1024);
+
+    // isMobileStore.setIsMobile(dimensions.width < 1024);
     setIsMobileSize(dimensions.width < 1024);
   }, [dimensions]);
 

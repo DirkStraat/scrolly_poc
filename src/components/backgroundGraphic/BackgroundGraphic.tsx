@@ -8,7 +8,9 @@ import { BarChart } from "../barChart/BarChartHorizontal";
 import { EuropeMap } from "../europeMap/EuropeMap";
 import { Donut } from "../donut/Donut";
 import { Stacked } from "../stacked/Stacked";
+import { ECBStream } from "../ecbStream/ECBStream";
 import { useEffect, useState } from "react";
+import isMobileStore from "../../stores/isMobileStore";
 
 const graphics = [
   "ESCPRanking",
@@ -19,7 +21,26 @@ const graphics = [
   "BarChart",
   "EuropeMap",
   "Donut",
-  "Stacked",
+  "ECBStream",
+];
+
+const images = [
+  {
+    title: "maastricht91",
+    position: 55,
+  },
+  {
+    title: "draghi",
+    position: 56,
+  },
+  {
+    title: "Lagarde_Hoekstra",
+    position: 22,
+  },
+  {
+    title: "maastricht91",
+    position: 55,
+  },
 ];
 
 function BackgroundGraphic({
@@ -31,9 +52,20 @@ function BackgroundGraphic({
 }) {
   const [graphicActive, setGraphicActive] = useState(null);
   const [secondGraphicActive, setSecondGraphicActive] = useState(null);
+  // const [isMobileSize, setIsMobileSize] = useState(true);
   const chapter2 = id == 1408271 ? title : "";
   const chapter3 = id == 1408272 ? title : "";
   const photoChapter = id == 1408273 ? title : "";
+
+  // useEffect(() => {
+  //   const subscriptionID = isMobileStore.subscribe(() => {
+  //     setIsMobileSize(isMobileStore.getIsMobile);
+  //   });
+
+  //   return () => {
+  //     isMobileStore.unsubscribe(subscriptionID);
+  //   };
+  // }, []);
 
   useEffect(() => {
     switch (currentPart) {
@@ -60,14 +92,14 @@ function BackgroundGraphic({
         setGraphicActive(graphics[4]);
         break;
       case `0_${chapter3}`:
-      case `1_${chapter3}`:
         setGraphicActive(graphics[5]);
         break;
+      case `1_${chapter3}`:
       case `2_${chapter3}`:
       case `3_${chapter3}`:
       case `4_${chapter3}`:
       case `5_${chapter3}`:
-        setGraphicActive(graphics[6]);
+        setGraphicActive(graphics[8]);
         break;
       case `3_${chapter3}`:
       case `4_${chapter3}`:
@@ -75,7 +107,7 @@ function BackgroundGraphic({
         setSecondGraphicActive(graphics[7]);
         break;
       case `6_${chapter3}`:
-        setGraphicActive(graphics[8]);
+        setGraphicActive(graphics[6]);
         break;
     }
   }, [currentPart]);
@@ -161,68 +193,36 @@ function BackgroundGraphic({
             title={title}
             active={graphicActive == "Stacked"}
           />
+          <ECBStream
+            isMobileSize={isMobileSize}
+            currentPart={currentPart}
+            title={title}
+            active={graphicActive == "ECBStream"}
+          />
         </>
       )}
-      {photoChapter && (
-        <>
-          <div
-            className={`${
-              currentPart == `0_${photoChapter}`
-                ? styles.photoActive
-                : styles.photoPassive
-            }`}
-          >
-            <Image
-              src="/images/maastricht91.jpg"
-              layout="fill"
-              objectFit="cover"
-              objectPosition={`${isMobileSize ? "56% 100%" : ""}`}
-            />
-          </div>
-          <div
-            className={`${
-              currentPart == `1_${photoChapter}`
-                ? styles.photoActive
-                : styles.photoPassive
-            }`}
-          >
-            <Image
-              src="/images/draghi.jpg"
-              layout="fill"
-              objectFit="cover"
-              objectPosition={`${isMobileSize ? "55% 100%" : ""}`}
-            />
-          </div>
-          <div
-            className={`${
-              currentPart == `2_${photoChapter}`
-                ? styles.photoActive
-                : styles.photoPassive
-            }`}
-          >
-            <Image
-              src="/images/Lagarde_Hoekstra.jpg"
-              layout="fill"
-              objectFit="cover"
-              objectPosition={`${isMobileSize ? "22% 100%" : ""}`}
-            />
-          </div>
-          <div
-            className={`${
-              currentPart == `3_${photoChapter}`
-                ? styles.photoActive
-                : styles.photoPassive
-            }`}
-          >
-            <Image
-              src="/images/maastricht91.jpg"
-              layout="fill"
-              objectFit="cover"
-              objectPosition={`${isMobileSize ? "56% 100%" : ""}`}
-            />
-          </div>
-        </>
-      )}
+      {photoChapter &&
+        images.map((image, i) => {
+          return (
+            <div
+              key={`${i}_${image.title}`}
+              className={`${styles.photoWrapper} ${
+                currentPart == `${i}_${photoChapter}`
+                  ? styles.photoActive
+                  : styles.photoPassive
+              }`}
+            >
+              <Image
+                src={`/images/${image.title}.jpg`}
+                layout="fill"
+                objectFit="cover"
+                objectPosition={`${
+                  isMobileSize ? `${image.position}% 100%` : ""
+                }`}
+              />
+            </div>
+          );
+        })}
     </div>
   );
 }
