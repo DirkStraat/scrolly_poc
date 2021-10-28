@@ -96,11 +96,11 @@ function ECBStream(props: Props) {
         d3.selectAll("text.legenda_amount")
           .data(keys)
           .text((d) => {
-            return `${(
+            return `€ ${(
               ECBData3.filter((element) => element.Week == dates[dateIndex])[0][
                 d
               ] / 1000
-            ).toFixed()} ${props.isMobileSize ? "" : "miljard"}`;
+            ).toFixed()}`;
           });
       }
     },
@@ -110,6 +110,10 @@ function ECBStream(props: Props) {
   const addLegenda = useCallback(() => {
     if (keys) {
       const size = 20;
+      const widthAmountMobile =
+        widthMobile - widthMobile * 0.7 + margin.right + margin.left;
+      const widthAmountDesktop =
+        widthDesktop - widthDesktop * 0.7 + margin.right + margin.left;
       const labelSvg = d3.select(ECBRef.current).select("svg");
       labelSvg
         .append("defs")
@@ -154,8 +158,8 @@ function ECBStream(props: Props) {
         .attr(
           "x",
           props.isMobileSize
-            ? widthMobile + margin.right + margin.left - size
-            : widthDesktop + margin.right + margin.left - size
+            ? widthAmountMobile - size - 8
+            : widthAmountDesktop - size - 8
         )
         .attr("y", (_, i) => {
           return margin.top + i * (size + 4);
@@ -184,8 +188,8 @@ function ECBStream(props: Props) {
         .attr(
           "x",
           props.isMobileSize
-            ? widthMobile - (size + 2) + margin.right + margin.left
-            : widthDesktop - (size + 2) + margin.right + margin.left
+            ? widthMobile + margin.right + margin.left
+            : widthDesktop + margin.right + margin.left
         )
         .attr("y", (_, i) => {
           return margin.top + (i + 1) * (size + 3) - 4;
@@ -203,17 +207,12 @@ function ECBStream(props: Props) {
         .selectAll("mylabels")
         .data(keys)
         .join("text")
-        .attr(
-          "x",
-          props.isMobileSize
-            ? widthMobile - (size + 2) - 48 + margin.right + margin.left
-            : widthDesktop - (size + 2) - 104 + margin.right + margin.left
-        )
+        .attr("x", props.isMobileSize ? widthAmountMobile : widthAmountDesktop)
         .attr("y", (_, i) => {
           return margin.top + (i + 1) * (size + 3) - 4;
         })
         .text((d) => `${d}:`)
-        .attr("text-anchor", "end")
+        .attr("text-anchor", "start")
         .attr("class", "legenda_item")
         .style("font-family", "ProximaNovaRegular")
         .style("font-size", () => {
@@ -278,14 +277,13 @@ function ECBStream(props: Props) {
               .ticks(5)
               .tickSize(-`${props.isMobileSize ? heightMobile : heightDesktop}`)
               .tickFormat((d: number) => d / 1000)
-            // .attr("stroke", "var(--product-background-2)")
           );
 
         // Add Y axis
         y.range([props.isMobileSize ? heightMobile : heightDesktop, 0]);
         svg
           .append("g")
-          // .attr("class", "y")
+          .attr("class", "y")
           .call(d3.axisLeft(y).tickFormat(d3.timeFormat("%Y")));
 
         svg
@@ -328,7 +326,7 @@ function ECBStream(props: Props) {
       <h2 className={styles.title}>Ontploffing op de balans</h2>
       <p className={styles.title}>
         Vanaf 2015 koopt de ECB staatsobligaties en laat daarmee de balans
-        ontploffen.
+        ontploffen. In € mrd.
       </p>
     </div>
   );
